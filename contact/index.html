@@ -7,18 +7,27 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <nav>
+    <!-- <nav>
         <a href="../index.html">Home</a>
         <a href="../projects/index.html">Projects</a>
-        <a href=""class="current">Contact</a>
+        <a href="">Contact</a>
         <a href="../Resume/index.html">Resume/CV</a>
         <a href="https://github.com/NFNeuweg" target="_blank">GitHub</a>
-    </nav>
+    </nav> -->
 
     
 
     <main>
-        <section id="touch">
+        <h2>Contact Me</h2>
+
+        <form id="contact-form" action="mailto:nneuweg@ucsd.edu">
+        <label>Subject: <input name="subject" /></label>
+        <label>MSG: <textarea name="body" rows="5" cols="30"></textarea></label>
+        <button type="submit">Submit</button>
+        </form>
+
+    <script type="module" src="../global.js"></script>
+        <!-- <section id="touch">
             <h2> To get in touch with me</h2>
             <p> If you have any questions or inquiries please fill out the contact information below
                 and send me an email!
@@ -33,8 +42,11 @@
             <label for="Body">MSG: <textarea name="body" rows="5" cols="30">Test</textarea></label>
             <button>Submit</button>
             </form>
-        </section>
+        </section> -->
+
+    <!-- <script type="module" src="../global.js"></script> -->
     </main>
+
 
 </body>
 </html>
