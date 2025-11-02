@@ -122,3 +122,50 @@ h1, h2, h3, h4, h5, h6 {
 .color-scheme select {
   font-family: inherit;
 }
+
+
+/* --- Lab 5: pie + legend --- */
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 1rem 1.5rem;
+  overflow: visible;
+}
+.pie-legend-container {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid oklch(50% 0.05 200 / 40%);
+  border-radius: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 0.5rem;
+  flex: 1;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.legend .swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  background: var(--color);
+}
+
+/* Hover fade */
+#projects-pie-plot:has(path:hover) path:not(:hover) { opacity: 0.5; }
+#projects-pie-plot path { transition: 300ms; cursor: pointer; }
+
+/* Selected state */
+.selected { --color: oklch(60% 0.45 0) !important; }
+.selected:is(path) { fill: var(--color); }
+.selected:is(li) .swatch { background: var(--color); }
+
+.projects-controls { margin-block: 0.5rem 1rem; }

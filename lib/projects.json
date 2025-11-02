@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Lorem ipsum dolor sit.",
+    "year": 2025,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Placeholder project about learning JS and templating."
+  },
+  {
+    "title": "Cumque quis tenetur natus?",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Experimenting with layout and accessibility."
+  },
+  {
+    "title": "Enim porro dolorem veritatis.",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Simple demo with images and copy."
+  },
+  {
+    "title": "Tenetur recusandae ad maxime.",
+    "year": 2022,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Data cards rendered dynamically."
+  },
+  {
+    "title": "Sed, ullam! Quia, explicabo!",
+    "year": 2025,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Working on component reuse."
+  },
+  {
+    "title": "Dolorum velit accusamus ex!",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Styling improvements and grid."
+  },
+  {
+    "title": "Eum deleniti cumque enim?",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Content placeholders and images."
+  },
+  {
+    "title": "Laboriosam aliquam omnis officiis.",
+    "year": 2022,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Project structure practice."
+  },
+  {
+    "title": "Praesentium assumenda explicabo voluptate.",
+    "year": 2025,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Small utility functions in JS."
+  },
+  {
+    "title": "Labore animi sequi atque.",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "DOM updates and templating."
+  },
+  {
+    "title": "Repellendus error accusamus maiores.",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Refactoring into modules."
+  },
+  {
+    "title": "Natus ducimus cumque soluta.",
+    "year": 2022,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Finishing touches and polish."
+  }
+]
