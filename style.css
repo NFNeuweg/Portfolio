@@ -169,3 +169,28 @@ h1, h2, h3, h4, h5, h6 {
 .selected:is(li) .swatch { background: var(--color); }
 
 .projects-controls { margin-block: 0.5rem 1rem; }
+
+
+.tooltip {
+  position: absolute;
+  background: color-mix(in oklch, canvas, black 10%);
+  padding: 0.5em;
+  border-radius: 0.25em;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 6px oklch(0% 0 0 / 0.3);
+  pointer-events: none;
+}
+
+
+#stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:.75rem; margin-block:.5rem 1rem; }
+.stat { border:1px solid #e6e6e9; border-radius:.5rem; padding:.75rem; }
+.stat b { display:block; font-size:.9rem; color:#555; }
+.stat .v { font-size:1.25rem; font-weight:600; }
+
+.info.tooltip {
+  position:absolute; background:color-mix(in oklch, canvas, black 10%);
+  padding:.5em; border-radius:.25em; font-size:.85rem; box-shadow:0 2px 6px oklch(0% 0 0 /.3);
+  pointer-events:none;
+}
+#scatter .grid line { shape-rendering: crispEdges; }
+

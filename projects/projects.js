@@ -56,7 +56,6 @@ function drawPie(list) {
       .on('click', () => handleSliceClick(i, data, list));
   });
 
-  // restore selected class after redraw
   applySelected();
 }
 
@@ -66,10 +65,8 @@ function applySelected() {
 }
 
 function recomputeAndRender() {
-  // base filter: query
   let filtered = filterByQuery(allProjects, currentQuery);
 
-  // optional year filter if a slice is active
   if (selectedIndex !== -1) {
     const yearsAll = rollupByYear(allProjects);
     const year = yearsAll[selectedIndex]?.label;
@@ -83,16 +80,14 @@ function recomputeAndRender() {
 function handleSliceClick(i, dataUnderPie, listShownNow) {
   selectedIndex = (selectedIndex === i ? -1 : i);
   applySelected();
-  // keep both filters (order doesn’t matter)
+
   recomputeAndRender();
 }
 
-// search interaction
 searchInput?.addEventListener('input', (e) => {
   currentQuery = e.target.value || '';
   recomputeAndRender();
 });
 
-// initial render
 renderProjects(allProjects, cards, 'h2');
 drawPie(allProjects);

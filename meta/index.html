@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lab 6 — Commit Meta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <main class="page">
+    <h1>Commit Meta</h1>
+
+    <!--summary stats  -->
+    <section>
+      <h2>Summary</h2>
+      <div id="stats"></div>
+    </section>
+
+    <!-- scatterplot -->
+    <section>
+      <h2>Commits by Time & Day</h2>
+      <div id="chart">
+        <svg id="scatter" width="900" height="520" aria-label="Commits scatterplot"></svg>
+        <!-- tooltip element -->
+        <dl id="commit-tooltip" class="info tooltip" hidden></dl>
+      </div>
+    </section>
+  </main>
+
+
+  <script type="module" src="../global.js"></script> 
+  <script type="module" src="./main.js"></script>  
+</body>
+</html>
