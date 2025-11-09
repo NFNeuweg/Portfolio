@@ -20,10 +20,18 @@
     <section>
       <h2>Commits by Time & Day</h2>
       <div id="chart">
+        <!-- Selection summary -->
+
+
         <svg id="scatter" width="900" height="520" aria-label="Commits scatterplot"></svg>
+
+        <p id="selection-count" class="muted"></p>
+        <dl id="language-breakdown" class="stats"></dl>
         <!-- tooltip element -->
         <dl id="commit-tooltip" class="info tooltip" hidden></dl>
       </div>
+
+
     </section>
   </main>
 
