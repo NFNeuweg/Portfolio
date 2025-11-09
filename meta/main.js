@@ -6,7 +6,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 const raw = await d3.csv("./loc.csv", d3.autoType);
 
 function parseDate(r) {
-  if (r.datetime) return new Date(r.datetime);                                  // preferred (ISO)
+  if (r.datetime) return new Date(r.datetime);                 // preferred (ISO)
   if (r.date && r.time) return new Date(`${r.date}T${r.time}${r.timezone ?? ""}`);
   if (r.date) return new Date(`${r.date}T00:00${r.timezone ?? ""}`);
   return null;
@@ -15,8 +15,7 @@ function parseDate(r) {
 /* ───────────────────────────────
    2) Collapse to commit-level rows
    ─────────────────────────────── */
-const commits = d3
-  .groups(raw, d => d.commit)
+const commits = d3.groups(raw, d => d.commit)
   .map(([id, rows]) => {
     const first = rows[0] ?? {};
     const dt = parseDate(first);
@@ -28,7 +27,7 @@ const commits = d3
       datetime: dt,
       hour,
       day,
-      lines: rows.length, // how many rows the commit touched in loc.csv
+      lines: rows.length,   // how many rows this commit touched (loc.csv)
     };
   })
   .filter(d => Number.isFinite(d.hour) && Number.isFinite(d.day));
@@ -64,7 +63,7 @@ const longestLineChar = d3.max(raw, d => d.length ?? 0) ?? 0;
 const maxDepth        = d3.max(raw, d => d.depth ?? 0) ?? 0;
 const avgDepth        = d3.mean(raw, d => d.depth ?? 0) ?? 0;
 
-function timeBucket(h) { return h < 6 ? "Night" : h < 12 ? "Morning" : h < 18 ? "Afternoon" : "Evening"; }
+function timeBucket(h){ return h < 6 ? "Night" : h < 12 ? "Morning" : h < 18 ? "Afternoon" : "Evening"; }
 const workByTOD = d3.rollup(commits, v => d3.sum(v, d => d.lines), d => timeBucket(d.hour));
 const topTOD    = [...workByTOD.entries()].sort((a,b)=>b[1]-a[1])[0]?.[0] ?? "(n/a)";
 
@@ -96,8 +95,8 @@ const width  = W - margin.left - margin.right;
 const height = H - margin.top - margin.bottom;
 const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-const x = d3.scaleLinear().domain([0, 24]).range([0, width]);
-const y = d3.scaleBand().domain(d3.range(7)).range([0, height]).padding(0.2);
+const x = d3.scaleLinear().domain([0,24]).range([0,width]);
+const y = d3.scaleBand().domain(d3.range(7)).range([0,height]).padding(0.2);
 
 // radius scale (guard outliers & zeros)
 const q99 = d3.quantile(commits.map(d => d.lines).sort(d3.ascending), 0.99) || 1;
@@ -108,13 +107,11 @@ g.append("g")
   .attr("transform", `translate(0,${height})`)
   .call(d3.axisBottom(x).ticks(12).tickFormat(d => `${d}:00`));
 
-g.append("g")
-  .call(d3.axisLeft(y).tickFormat(i => dayLabels[i]));
+g.append("g").call(d3.axisLeft(y).tickFormat(i => dayLabels[i]));
 
 // horizontal gridlines at weekday centers
 g.append("g")
-  .attr("stroke", "currentColor")
-  .attr("stroke-opacity", 0.08)
+  .attr("stroke", "currentColor").attr("stroke-opacity", 0.08)
   .selectAll("line")
   .data(y.domain())
   .join("line")
@@ -167,21 +164,74 @@ const dots = g.append("g").attr("class","dots")
   .on("mouseleave", hideTip);
 
 /* ───────────────────────────────
-   5) Brushing (works with hover)
+   5) Selection helpers + language panel
+   ─────────────────────────────── */
+function isCommitSelected(selection, d) {
+  if (!selection) return false;
+  const [[x0, y0], [x1, y1]] = selection;
+  const cx = x(d.hour), cy = y(d.day) + y.bandwidth()/2;
+  return (x0<=cx && cx<=x1 && y0<=cy && cy<=y1);
+}
+
+function updateSelectionCount(selection) {
+  const n = selection ? commits.filter(d => isCommitSelected(selection, d)).length : 0;
+  d3.select("#selection-count").text(n ? `${n} commit${n>1?"s":""} selected` : "");
+}
+
+function langOf(row) {
+  if (row.type) return String(row.type).toUpperCase();
+  const m = String(row.file || "").match(/\.([a-z0-9]+)$/i);
+  const ext = (m ? m[1] : "other").toLowerCase();
+  const map = { js:"JS", jsx:"JS", ts:"JS", tsx:"JS", css:"CSS", scss:"CSS", sass:"CSS", html:"HTML", htm:"HTML" };
+  return (map[ext] || ext.toUpperCase());
+}
+
+function updateLanguageBreakdown(selection) {
+  const box = d3.select("#language-breakdown");
+  if (!selection) { box.html(""); return; }
+
+  const selectedIds = new Set(commits.filter(d => isCommitSelected(selection, d)).map(d => d.id));
+  if (!selectedIds.size) { box.html(""); return; }
+
+  const rows  = raw.filter(r => selectedIds.has(r.commit));
+  const total = rows.length;
+
+  const byLang = d3.rollup(rows, v => v.length, r => langOf(r));
+  const items  = [...byLang.entries()].sort((a,b) => b[1]-a[1]);
+
+  box.html("");
+  items.forEach(([language, count]) => {
+    const pct = d3.format(".1~%")(count / total);
+    box.append("dt").text(language);
+    box.append("dd").text(`${count} lines (${pct})`);
+  });
+}
+
+/* ───────────────────────────────
+   6) Brushing (smooth; no jitter)
    ─────────────────────────────── */
 const brush = d3.brush()
   .extent([[0,0],[width,height]])
-  .on("brush end", ({selection}) => {
-    if (!selection) return dots.attr("opacity", 0.9);
-    const [[x0,y0],[x1,y1]] = selection;
+  .on("start brush", (event) => {
+    const sel = event.selection;
+    if (!sel) {                          // no selection → restore default look
+      dots.attr("opacity", 0.9);
+      d3.select("#selection-count").text("");
+      return;
+    }
+    const [[x0, y0], [x1, y1]] = sel;
     dots.attr("opacity", d => {
-      const cx = x(d.hour);
-      const cy = y(d.day) + y.bandwidth()/2;
+      const cx = x(d.hour), cy = y(d.day) + y.bandwidth()/2;
       return (x0<=cx && cx<=x1 && y0<=cy && cy<=y1) ? 1 : 0.15;
     });
+    updateSelectionCount(sel);
+  })
+  .on("end", (event) => {
+    updateLanguageBreakdown(event.selection);   // render panel once
   });
 
-// transparent background so brush can start anywhere
+
+// background so you can start a brush anywhere
 g.insert("rect", ":first-child")
   .attr("width", width)
   .attr("height", height)
@@ -189,22 +239,25 @@ g.insert("rect", ":first-child")
   .style("pointer-events", "all");
 
 const brushG = g.append("g").attr("class","brush").call(brush);
-// keep overlay behind dots so hover still works
-brushG.select(".overlay").lower();
+
+brushG.select(".overlay").lower();                           // overlay behind dots
+brushG.selectAll(".selection, .handle").style("pointer-events", "none"); // don't block hover
 g.select(".dots").raise();
 
-// dblclick to clear selection
+// dblclick to clear selection + UI
 svg.on("dblclick", () => {
   brushG.call(brush.move, null);
   dots.attr("opacity", 0.9);
+  updateSelectionCount(null);
+  updateLanguageBreakdown(null);
 });
 
 /* ───────────────────────────────
-   6) Size legend (lines edited)
+   7) Size legend (lines edited)
    ─────────────────────────────── */
 function sizeLegend({g, scale, title, x, y}) {
-  const domain = scale.domain();
-  const values = [domain[0], d3.quantile(domain, .5), domain[1]];
+  const [min, max] = scale.domain();
+  const values = [min, d3.quantile([min,max], .5), max];
   const L = g.append("g").attr("transform", `translate(${x},${y})`);
   L.append("text").attr("x",0).attr("y",-10).attr("font-size","12px").text(title);
 
@@ -213,10 +266,11 @@ function sizeLegend({g, scale, title, x, y}) {
 
   row.append("circle")
     .attr("r", d => scale(d))
-    .attr("cx", 0).attr("cy", 0)
+    .attr("cx", 0)
+    .attr("cy", 0)
     .attr("fill","steelblue").attr("fill-opacity",0.6);
 
   row.append("text").attr("x", 18).attr("y", 4)
-     .text(d => Math.round(d)).attr("font-size","12px");
+    .text(d => Math.round(d)).attr("font-size","12px");
 }
 sizeLegend({ g, scale: r, title: "Lines edited", x: width-120, y: 10 });
