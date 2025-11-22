@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Lab 6 — Commit Meta</title>
+  <title>Lab 8 — Commit Meta</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../style.css" />
 </head>
@@ -10,33 +10,64 @@
   <main class="page">
     <h1>Commit Meta</h1>
 
-    <!--summary stats  -->
+    <!-- Summary stats -->
     <section>
       <h2>Summary</h2>
       <div id="stats"></div>
     </section>
 
-    <!-- scatterplot -->
+    <!-- Time filter UI -->
     <section>
-      <h2>Commits by Time & Day</h2>
-      <div id="chart">
-        <!-- Selection summary -->
+      <label for="commit-progress" class="commit-filter">
+        Show commits until:
+        <input
+          id="commit-progress"
+          type="range"
+          min="0"
+          max="100"
+          value="100"
+        />
+        <time id="commit-time"></time>
+      </label>
+    </section>
 
+    <!-- Scatterplot + scrollytelling -->
+    <section>
+      <h2>Commits by Time &amp; Day</h2>
 
-        <svg id="scatter" width="900" height="520" aria-label="Commits scatterplot"></svg>
+      <div id="scrolly-1">
+        <!-- narrative text on the left -->
+        <div id="scatter-story">
+          <!-- .step divs will be injected by JS -->
+        </div>
 
-        <p id="selection-count" class="muted"></p>
-        <dl id="language-breakdown" class="stats"></dl>
-        <!-- tooltip element -->
-        <dl id="commit-tooltip" class="info tooltip" hidden></dl>
+        <!-- sticky scatter on the right -->
+        <div id="scatter-plot">
+          <div id="chart">
+            <svg
+              id="scatter"
+              width="900"
+              height="520"
+              aria-label="Commits scatterplot"
+            ></svg>
+
+            <p id="selection-count" class="muted"></p>
+            <dl id="language-breakdown" class="stats"></dl>
+            <!-- tooltip element -->
+            <dl id="commit-tooltip" class="info tooltip" hidden></dl>
+          </div>
+        </div>
       </div>
+    </section>
 
-
+    <!-- File unit visualization -->
+    <section>
+      <h2>Files over Time</h2>
+      <dl id="files"></dl>
     </section>
   </main>
 
-
-  <script type="module" src="../global.js"></script> 
-  <script type="module" src="./main.js"></script>  
+  <script type="module" src="../global.js"></script>
+  <script type="module" src="./main.js"></script>
 </body>
 </html>
