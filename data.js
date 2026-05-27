@@ -118,14 +118,14 @@ window.NN_DATA = {
   dives: [
     {
       n: 1,
-      date: "[ dive date ]",
+      date: "recent",
       site: "La Jolla Cove, La Jolla",
       depth: null,
       vis: null,
       temp: null,
       dur: null,
-      buddy: "[ buddy ]",
-      note: "[ specific note about the dive ]"
+      buddy: "",
+      note: "Open Water dive around La Jolla Cove's kelp forests and rocky reef."
     },
   ],
 
@@ -134,46 +134,25 @@ window.NN_DATA = {
   ─────────────────────────────────────────────────────────────────────── */
   hikes: [
     {
-      date: "[ date ]",
-      trail: "[ trail name ]",
+      date: "recent",
+      trail: "Big Sur coast",
       loc: "Big Sur, CA",
       dist: null, elev: null, dur: null,
-      note: "[ specific note about the hike ]"
+      note: "Coastal overlooks, cypress groves, waterfall coves, and long ocean views."
     },
     {
-      date: "[ date ]",
-      trail: "[ trail name ]",
-      loc: "Sequoia National Park, CA",
-      dist: null, elev: null, dur: null,
-      note: "[ specific note about the hike ]"
-    },
-    {
-      date: "[ date ]",
-      trail: "[ trail name ]",
-      loc: "Yosemite National Park, CA",
-      dist: null, elev: null, dur: null,
-      note: "[ specific note about the hike ]"
-    },
-    {
-      date: "[ date ]",
-      trail: "[ trail name ]",
-      loc: "Crater Lake, OR",
-      dist: null, elev: null, dur: null,
-      note: "[ specific note about the hike ]"
-    },
-    {
-      date: "[ date ]",
-      trail: "[ trail name ]",
-      loc: "Monterey, CA",
-      dist: null, elev: null, dur: null,
-      note: "[ specific note about the hike ]"
-    },
-    {
-      date: "[ date ]",
-      trail: "[ trail name ]",
+      date: "recent",
+      trail: "La Jolla shoreline",
       loc: "San Diego, CA",
       dist: null, elev: null, dur: null,
-      note: "[ specific note about the hike ]"
+      note: "Rock shelves, tide pools, and shoreline paths above the water."
+    },
+    {
+      date: "recent",
+      trail: "Monterey coast",
+      loc: "Monterey, CA",
+      dist: null, elev: null, dur: null,
+      note: "Rocky coves and cypress-framed views along the central coast."
     },
   ],
 
@@ -208,7 +187,7 @@ window.NN_DATA = {
   ─────────────────────────────────────────────────────────────────────── */
   coursework: [
     { code: "MATH 142B", name: "Introduction to Analysis II",      note: "metric spaces, sequences, series, uniform convergence", status: "current" },
-    { code: "DSC 152",   name: "[ course name ]",                  note: "[ course description ]",                                status: "current" },
+    { code: "DSC 152",   name: "Applied Statistical Data Analysis and Inference", note: "R-based real data analysis, graphics, estimation, testing, regression, inference", status: "current" },
     { code: "DSC 140A",  name: "Probabilistic ML",                 note: "supervised learning, regression, decision trees" },
     { code: "COGS 181A", name: "Neural Networks",                  note: "perceptrons, backpropagation, CNNs, deep learning" },
     { code: "MATH 180C", name: "Stochastic Processes II",          note: "continuous-time Markov chains, Brownian motion" },

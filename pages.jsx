@@ -263,7 +263,7 @@ function Home({ navigate }) {
           <span className="now-dot">·</span>
           <span>MATH 142B</span>
           <span className="now-dot">·</span>
-          <span>DSC 152</span>
+          <span>DSC 152 with R</span>
         </div>
       </div>
 
@@ -304,8 +304,8 @@ function Home({ navigate }) {
               </p>
               <p>
                 My coursework sits at the overlap of probability theory, machine learning, and
-                visualization. I like working on problems where the math and the interface
-                meet — where a cleaner model also means a cleaner chart.
+                visualization. This quarter that includes DSC 152, using R for real data analysis,
+                statistical graphics, inference, hypothesis tests, and regression.
               </p>
               <p>
                 Outside the laptop: Open Water certified diver, mostly in the kelp forests
@@ -465,53 +465,44 @@ const GALLERY_PHOTOS = [
   {
     id: 'p-dive-2',
     shape: 'sq',
-    caption: '[ dive site ]',
+    caption: 'La Jolla shoreline',
     tag: 'dive',
     grad: 'linear-gradient(160deg, #0c2a38, #071820 65%, #040e14)',
+    defaultSrc: 'Images/la-jolla-coconut.jpg',
   },
 
   /* ── Hikes ── */
   {
     id: 'p-big-sur',
     shape: 'sq',
-    caption: 'Big Sur, CA',
+    caption: 'Cypress coast',
     tag: 'hike',
     grad: 'linear-gradient(160deg, #1e3520, #121f14 65%, #090f0a)',
+    defaultSrc: 'Images/cypress-coast.jpg',
   },
   {
     id: 'p-sequoia',
     shape: 'tall',
-    caption: 'Sequoia National Park, CA',
+    caption: 'Big Sur sunset',
     tag: 'hike',
     grad: 'linear-gradient(160deg, #2a3818, #1a2410 65%, #0d1208)',
+    defaultSrc: 'Images/big-sur-sunset.jpg',
   },
   {
     id: 'p-yosemite',
     shape: 'wide',
-    caption: 'Yosemite National Park, CA',
+    caption: 'Rocky coast overlook',
     tag: 'hike',
     grad: 'linear-gradient(160deg, #263020, #161e14 65%, #0b0f0a)',
+    defaultSrc: 'Images/rocky-coast.jpg',
   },
   {
     id: 'p-crater-lake',
     shape: 'sq',
-    caption: 'Crater Lake, OR',
+    caption: 'McWay Falls',
     tag: 'hike',
     grad: 'linear-gradient(160deg, #0d2040, #081428 65%, #040a18)',
-  },
-  {
-    id: 'p-monterey',
-    shape: 'sq',
-    caption: 'Monterey, CA',
-    tag: 'hike',
-    grad: 'linear-gradient(160deg, #122a30, #0b1a1e 65%, #060e12)',
-  },
-  {
-    id: 'p-san-diego',
-    shape: 'sq',
-    caption: 'San Diego hike',
-    tag: 'hike',
-    grad: 'linear-gradient(160deg, #2e3020, #1c1e14 65%, #0e0f0a)',
+    defaultSrc: 'Images/mcway-falls.jpg',
   },
 ];
 
@@ -529,7 +520,7 @@ function Outside() {
         <h1>Dives &amp; Hikes</h1>
         <p>
           Open Water certified. Mostly kelp forests and rocky reefs around San Diego.
-          Hiking when I can't get in the water — Big Sur, Sequoia, Yosemite, and wherever else.
+          Hiking when I can't get in the water - Big Sur, La Jolla, Monterey, and wherever else.
         </p>
       </div>
 
@@ -558,7 +549,7 @@ function Outside() {
         <p className="page-kicker">gallery</p>
         <h2 className="section-title mb-4">Photos</h2>
         <p className="text-muted mb-8" style={{fontSize: '0.8rem', fontFamily: 'JetBrains Mono, monospace'}}>
-          Drop a photo onto any slot — it persists in your browser.
+          Coastal photos from recent outside days. Drop a replacement onto any slot to change it locally.
         </p>
         <div className="gallery">
           {GALLERY_PHOTOS.map(ph => (
@@ -664,7 +655,7 @@ function Outside() {
 ══════════════════════════════════════════════════════════════════════ */
 
 const SKILLS = [
-  'Python', 'SQL', 'MySQL',
+  'Python', 'R', 'SQL', 'MySQL',
   'pandas', 'NumPy', 'scikit-learn', 'Matplotlib',
   'Selenium', 'BeautifulSoup',
   'n8n', 'D3.js', 'JavaScript', 'React', 'HTML/CSS',
