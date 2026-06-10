@@ -99,26 +99,182 @@ function TopBar({ page, navigate }) {
 /* ── Shared: ProjectCard ──────────────────────────────────────────────── */
 
 function ProjectCard({ project: p, headingLevel = 'h3' }) {
+  const [open, setOpen] = useState(false);
+  const cardRef = React.useRef(null);
+  const dialogRef = React.useRef(null);
   const isOcean = p.tags.includes('ocean');
   const H = headingLevel;
+  const dialogId = `project-dialog-${p.slug}`;
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    function handleDialogKeyDown(event) {
+      if (event.key === 'Escape') {
+        closeProject();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusable = dialogRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    window.addEventListener('keydown', handleDialogKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleDialogKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  function openProject() {
+    setOpen(true);
+  }
+
+  function closeProject() {
+    setOpen(false);
+    requestAnimationFrame(() => cardRef.current?.focus());
+  }
+
+  function handleCardKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openProject();
+    }
+  }
+
   return (
-    <article className="proj-card" data-ocean={isOcean || undefined}>
-      <p className="proj-num mono">N° {p.id}</p>
-      <H className="proj-title">{p.title}</H>
-      <p className="proj-blurb">{p.blurb}</p>
-      <div className="chip-row">
-        {p.tags.map(t => (
-          <span key={t} className={`chip ${isOcean ? 'chip-sea' : 'chip-pine'}`}>{t}</span>
-        ))}
-      </div>
-      <div className="proj-meta">
-        <span className="proj-year mono">{p.year}</span>
-        {p.course !== '—' && <span className="proj-course mono">{p.course}</span>}
-        <div className="chip-row" style={{marginLeft: 'auto'}}>
-          {p.stack.map(s => <span key={s} className="chip">{s}</span>)}
+    <>
+      <article
+        ref={cardRef}
+        className="proj-card"
+        data-ocean={isOcean || undefined}
+        role="button"
+        tabIndex={0}
+        aria-haspopup="dialog"
+        aria-controls={dialogId}
+        aria-expanded={open}
+        aria-label={`Open details for ${p.title}`}
+        onClick={openProject}
+        onKeyDown={handleCardKeyDown}
+      >
+        <div className="proj-card-topline">
+          <p className="proj-num mono">N° {p.id}</p>
+          <span className="proj-year mono">{p.year}</span>
         </div>
-      </div>
-    </article>
+        <H className="proj-title">{p.title}</H>
+        <p className="proj-card-blurb">{p.blurb}</p>
+        <div className="proj-card-footer">
+          <span>{p.course !== '—' ? p.course : p.role === 'group' ? 'group project' : 'personal project'}</span>
+          <span className="proj-open" aria-hidden="true">view details +</span>
+        </div>
+      </article>
+
+      {open && (
+        <div
+          className="project-dialog-backdrop"
+          onMouseDown={event => {
+            if (event.target === event.currentTarget) closeProject();
+          }}
+        >
+          <section
+            ref={dialogRef}
+            id={dialogId}
+            className="project-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`${dialogId}-title`}
+          >
+            <button
+              type="button"
+              className="project-dialog-close"
+              onClick={closeProject}
+              aria-label={`Close ${p.title} details`}
+              autoFocus
+            >
+              close
+            </button>
+
+            <p className="proj-num mono">N° {p.id} / {p.year}</p>
+            <h2 id={`${dialogId}-title`} className="project-dialog-title">{p.title}</h2>
+            <p className="project-dialog-lede">{p.blurb}</p>
+
+            {p.details && <p className="project-dialog-copy">{p.details}</p>}
+
+            <div className="project-dialog-meta">
+              <div>
+                <span className="project-dialog-label">role</span>
+                <strong>{p.role === 'group' ? 'Group project' : 'Solo project'}</strong>
+              </div>
+              {p.course !== '—' && (
+                <div>
+                  <span className="project-dialog-label">course</span>
+                  <strong>{p.course}</strong>
+                </div>
+              )}
+            </div>
+
+            {p.features?.length > 0 && (
+              <div className="project-dialog-section">
+                <h3>What it does</h3>
+                <ul className="project-feature-list">
+                  {p.features.map(feature => <li key={feature}>{feature}</li>)}
+                </ul>
+              </div>
+            )}
+
+            {p.dataSources?.length > 0 && (
+              <div className="project-dialog-section">
+                <h3>Data</h3>
+                <ul className="project-feature-list">
+                  {p.dataSources.map(source => <li key={source}>{source}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <div className="project-dialog-section">
+              <h3>Built with</h3>
+              <div className="chip-row">
+                {p.stack.map(s => <span key={s} className="chip">{s}</span>)}
+              </div>
+            </div>
+
+            <div className="chip-row project-dialog-tags">
+              {p.tags.map(t => (
+                <span key={t} className={`chip ${isOcean ? 'chip-sea' : 'chip-pine'}`}>{t}</span>
+              ))}
+            </div>
+
+            {p.url && (
+              <a
+                className="project-dialog-link"
+                href={p.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {p.linkLabel || 'Visit project'} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </section>
+        </div>
+      )}
+    </>
   );
 }
 

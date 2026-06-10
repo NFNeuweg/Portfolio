@@ -5,8 +5,7 @@
 window.NN_DATA = {
 
   /* ── Projects ───────────────────────────────────────────────────────────
-     7 entries. Real projects listed first; coursework-themed placeholders
-     fill remaining slots — swap with real titles/blurbs when ready.
+     9 entries. Real projects listed first.
      tags: math, modeling, ml, viz, data, sql, algorithms, web, finance,
            ocean, personal
   ─────────────────────────────────────────────────────────────────────── */
@@ -20,7 +19,7 @@ window.NN_DATA = {
       tags: ["viz", "web", "data"],
       course: "DSC 106",
       stack: ["D3", "JavaScript", "Scrollama"],
-      blurb: "Scrollytelling walkthrough of a Git repo's commit history — scatter by time of day, file unit view by language.",
+      blurb: "D3 + Scrollama scrollytelling visualization of a Git repository's commit history, with commits plotted by time of day and an animated file-unit view grouped by programming language. Interactive steps reveal how the codebase and contributor activity changed over time.",
       role: "solo"
     },
     {
@@ -31,7 +30,7 @@ window.NN_DATA = {
       tags: ["ml", "web", "personal"],
       course: "—",
       stack: ["n8n", "JavaScript", "API"],
-      blurb: "Automated n8n workflow that takes a topic prompt, calls LLM APIs to draft and refine a script, and outputs a short-form YouTube video explaining the topic.",
+      blurb: "Automated n8n workflow that takes a topic prompt, chains LLM API calls to draft and refine a script, and assembles a short-form YouTube video explaining the topic — fully hands-off from prompt to upload-ready output.",
       role: "solo"
     },
     {
@@ -42,7 +41,7 @@ window.NN_DATA = {
       tags: ["data", "finance"],
       course: "—",
       stack: ["Python", "Selenium", "BeautifulSoup"],
-      blurb: "Scraper for U.S. Treasury auction results — handles JavaScript-rendered pages, parses HTML tables, and plots yield trends across maturities over time.",
+      blurb: "Three-stage Python pipeline that scrapes TreasuryDirect auction results with Selenium + BeautifulSoup, cleans and dedupes on CUSIP with incremental CSV storage, computes derived yield metrics, and visualizes rate trends with Plotly. Includes an interactive CLI yield calculator.",
       role: "solo"
     },
     {
@@ -53,7 +52,7 @@ window.NN_DATA = {
       tags: ["ml", "data"],
       course: "—",
       stack: ["Python", "scikit-learn", "pandas"],
-      blurb: "End-to-end ML pipeline on 337,000+ professional match records — feature engineering, Random Forest classifier, and confusion-matrix evaluation.",
+      blurb: "Match outcome prediction with a RandomForestClassifier and custom feature engineering, including a TeamPerformance class that models in-game power dynamics. Covers data ingestion, train/test evaluation, and feature importance analysis.",
       role: "solo"
     },
     {
@@ -64,7 +63,7 @@ window.NN_DATA = {
       tags: ["ml"],
       course: "—",
       stack: ["Python", "NumPy"],
-      blurb: "Neural network built from scratch in NumPy — forward pass, backprop, and gradient descent — as the capstone for Andrew Ng's ML specialization.",
+      blurb: "Fully connected neural network implemented from scratch in NumPy, including parameter initialization, forward propagation, loss computation, backpropagation, and gradient-descent updates. Built as the capstone for Andrew Ng's Machine Learning Specialization to understand the full training loop without deep-learning frameworks.",
       role: "solo"
     },
     {
@@ -75,11 +74,11 @@ window.NN_DATA = {
       tags: ["web"],
       course: "DSC 106",
       stack: ["React", "JavaScript"],
-      blurb: "Single-page portfolio with six tabs — projects, outside life, resume, and a building-in-public meta page.",
+      blurb: "This site — built for DSC 106, with project filtering via a clickable pie chart and live search across titles, tags, stack, and course.",
       role: "solo"
     },
 
-    /* ── Coursework placeholders — swap with real blurbs when ready ── */
+    /* ── Additional projects ── */
     {
       id: "07",
       slug: "bikewatching",
@@ -88,8 +87,50 @@ window.NN_DATA = {
       tags: ["viz", "data", "web"],
       course: "DSC 106",
       stack: ["Mapbox GL JS", "D3.js", "JavaScript"],
-      blurb: "Interactive map of Bluebikes station traffic and bike lane infrastructure across Boston and Cambridge — explore departure/arrival ratios and time-based patterns via a slider.",
+      blurb: "DSC 106 interactive Mapbox and D3 visualization of Bluebikes station traffic and bike-lane infrastructure across Boston and Cambridge. Uses a time slider, departure-to-arrival ratios, and map-based station encoding to expose commuting patterns and changes throughout the day.",
       role: "solo"
+    },
+    {
+      id: "08",
+      slug: "hugging-face-rag-indexer",
+      title: "Hugging Face RAG indexer",
+      year: 2025,
+      tags: ["ml", "data", "personal"],
+      course: "—",
+      stack: ["Python", "Hugging Face", "Transformers"],
+      blurb: "End-to-end RAG pipeline: loads PDFs, chunks text, embeds with Hugging Face sentence-transformer models, indexes with FAISS, and retrieves top-k chunks to ground LLM answers. Compared embedding models for retrieval quality and added a Gradio interface for querying.",
+      details: "Built an indexing workflow that turns source material into searchable context for retrieval-augmented generation and downstream question answering.",
+      features: [
+        "Transformer-based document indexing",
+        "Semantic retrieval of relevant context",
+        "Reusable ingestion workflow for new source material"
+      ],
+      role: "solo"
+    },
+    {
+      id: "09",
+      slug: "america-on-fire",
+      title: "America on Fire",
+      year: 2025,
+      tags: ["viz", "data", "web"],
+      course: "DSC 106",
+      stack: ["JavaScript", "D3.js", "TopoJSON", "HTML", "CSS"],
+      blurb: "DSC 106 group visualization built from 2024 NASA MODIS Active Fire data. Combines a guided story with an interactive D3 map for exploring wildfire intensity by month, state, and county, highlighting seasonal patterns and surprising hotspots through Fire Radiative Power and fire-count metrics.",
+      details: "A guided data story and exploratory map for comparing wildfire intensity by month, state, and county, with a presentation mode that highlights surprising fire patterns and hotspots.",
+      features: [
+        "Guided story revealing unexpected fire patterns and hotspots",
+        "U.S. map colored by total Fire Radiative Power (FRP)",
+        "State-to-county zoom for local wildfire data",
+        "Monthly slider for seasonal fire patterns",
+        "Hover tooltips with fire counts and FRP values"
+      ],
+      dataSources: [
+        "NASA MODIS Active Fire Data (2024)",
+        "U.S. state and county boundaries (TopoJSON)"
+      ],
+      url: "https://dylandsouza.com/america-on-fire/",
+      linkLabel: "Explore America on Fire",
+      role: "group"
     },
   ],
 
