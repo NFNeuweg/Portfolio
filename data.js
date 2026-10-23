@@ -139,16 +139,29 @@ window.NN_DATA = {
   ─────────────────────────────────────────────────────────────────────── */
   experience: [
     {
+      id: "cchdo",
+      title: "AI & Workflow Engineer",
+      org: "CCHDO, Scripps Institution of Oceanography, UC San Diego",
+      loc: "San Diego, CA",
+      dates: "Jun 2026 — Sep 2026",
+      bullets: [
+        "Built Python and n8n automation workflows that extract structured metadata from oceanographic cruise report PDFs, replacing manual data entry for the CCHDO archive.",
+        "Redesigned the extraction architecture to send PDFs directly to the OpenAI API by URL, eliminating an AWS Textract dependency and a FastAPI intermediary service.",
+        "Deployed and debugged services on a shared UCSD Linux server, working through Podman container networking and FastAPI service configuration.",
+        "Prototyped LLM agent and RAG workflows for document QA and metadata validation; proposed and iterated on automation ideas with the data manager.",
+      ]
+    },
+    {
       id: "jsoe-it",
       title: "Student Computing Support Technician",
       org: "Jacobs School of Engineering, UC San Diego",
       loc: "San Diego, CA",
-      dates: "2023 — Present",
+      dates: "Dec 2023 — Jun 2026",
       bullets: [
-        "Image and deploy 30+ systems per week — OS installs, driver setup, and required software configuration.",
-        "Perform secure data sanitization on hundreds of machines using 3-pass overwrite procedures.",
-        "Diagnose and repair hardware and software issues across laptops, desktops, and peripherals.",
-        "Maintain inventory and service logs for auditing, lifecycle tracking, and lab readiness.",
+        "Imaged and deployed 30+ systems per week, including OS installs, driver setup, and software configuration.",
+        "Performed secure multi-pass (3-pass) data sanitization on hundreds of machines before reassignment.",
+        "Diagnosed and repaired hardware and software issues across laptops, desktops, and peripherals in a production support environment.",
+        "Maintained inventory and service logs supporting auditing and lifecycle tracking.",
       ]
     },
   ],
@@ -229,6 +242,8 @@ window.NN_DATA = {
   coursework: [
     { code: "MATH 142B", name: "Introduction to Analysis II",      note: "metric spaces, sequences, series, uniform convergence", status: "current" },
     { code: "DSC 152",   name: "Applied Statistical Data Analysis and Inference", note: "R-based real data analysis, graphics, estimation, testing, regression, inference", status: "current" },
+    { code: "MATH 142A", name: "Introduction to Analysis I",       note: "real numbers, limits, continuity, differentiation" },
+    { code: "MATH 102",  name: "Applied Linear Algebra",           note: "matrix factorizations, least squares, eigenvalues" },
     { code: "DSC 140A",  name: "Probabilistic ML",                 note: "supervised learning, regression, decision trees" },
     { code: "COGS 181A", name: "Neural Networks",                  note: "perceptrons, backpropagation, CNNs, deep learning" },
     { code: "MATH 180C", name: "Stochastic Processes II",          note: "continuous-time Markov chains, Brownian motion" },
