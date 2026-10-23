@@ -811,11 +811,13 @@ function Outside() {
 ══════════════════════════════════════════════════════════════════════ */
 
 const SKILLS = [
-  'Python', 'R', 'SQL', 'MySQL',
+  'Python', 'R', 'SQL', 'JavaScript/TypeScript', 'Bash',
+  'OpenAI API', 'RAG', 'FAISS', 'Prompt engineering', 'Promptfoo', 'n8n',
   'pandas', 'NumPy', 'scikit-learn', 'Matplotlib',
   'Selenium', 'BeautifulSoup',
-  'n8n', 'D3.js', 'JavaScript', 'React', 'HTML/CSS',
-  'Git', 'Jupyter', 'Linux/Bash', 'Excel',
+  'Linux/WSL2', 'Podman/Docker', 'systemd',
+  'Git', 'FastAPI', 'Next.js', 'Vercel', 'Cloudflare Workers',
+  'PostgreSQL', 'MySQL', 'SQLite', 'Prisma',
 ];
 
 function Resume() {
@@ -830,7 +832,8 @@ function Resume() {
 
       <a
         className="pdf-link"
-        href="Resume/data_science_tech_resume_template__1_.pdf"
+        href="Resume/Noah_Neuweg_Resume_2026.pdf"
+        download="Noah_Neuweg_Resume_2026.pdf"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -847,7 +850,7 @@ function Resume() {
             <p className="resume-section-title">education</p>
             <div className="edu-entry">
               <div className="edu-school">UC San Diego</div>
-              <div className="edu-degree">B.S. in Mathematics &amp; Applied Data Science</div>
+              <div className="edu-degree">B.S. Mathematics — Applied Data Science</div>
               <div className="edu-date">2023 — Dec 2026 (expected)</div>
             </div>
           </section>
